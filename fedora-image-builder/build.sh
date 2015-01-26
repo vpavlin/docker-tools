@@ -166,7 +166,7 @@ $BOOT \
 
 [ $? -eq 0 ] && ${DOCKER_IMPORT} && virt-tar-out -a ${VM_IMAGE} / - | docker import - ${u}/${NAME}
 [ $? -eq 0 ] && ${DOCKER_IMPORT} && ${DOCKER_BUILD} && docker build -t ${u}/${NAME}-build ${TMP_DIR}
-if [ $? -eq 0 ] && ${DOCKER_SAVE}; then
+if ${DOCKER_IMPORT} && ${DOCKER_SAVE}; then
     [ -d ${DOCKER_SAVE_DIR} ] || mkdir ${DOCKER_SAVE_DIR}
     if ${DOCKER_BUILD}; then
         docker save -o ${DOCKER_SAVE_DIR}/${u}-${name}-build.tar ${u}/${NAME}-build
