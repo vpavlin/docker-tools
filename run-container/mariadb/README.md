@@ -1,1 +1,3 @@
-docker run -it -v /sys/fs/cgroup:/sys/fs/cgroup --rm --name mysql rhel7/mariadb
+```
+docker run -it --rm -v /sys/fs/cgroup:/sys/fs/cgroup -v /var/log/journal --name mysql rhel7/mariadb
+```
