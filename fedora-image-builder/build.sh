@@ -169,9 +169,9 @@ $BOOT \
 if ${DOCKER_IMPORT} && ${DOCKER_SAVE}; then
     [ -d ${DOCKER_SAVE_DIR} ] || mkdir ${DOCKER_SAVE_DIR}
     if ${DOCKER_BUILD}; then
-        docker save -o ${DOCKER_SAVE_DIR}/${u}-${name}-build.tar ${u}/${NAME}-build
+        docker save -o ${DOCKER_SAVE_DIR}/${u}-${NAME}-build.tar ${u}/${NAME}-build
     elif ${DOCKER_IMPORT}; then
-        docker save -o ${DOCKER_SAVE_DIR}/${u}-${name}.tar ${u}/${NAME}
+        docker save -o ${DOCKER_SAVE_DIR}/${u}-${NAME}.tar ${u}/${NAME}
     else
         _ "No image to save"
     fi

@@ -1,12 +1,12 @@
 #!/usr/bin/bash
 
 #We need /run and /tmp volumes for fedora, cgroup is needed always
-DEFAULT_VOLUMES="-v /sys/fs/cgroup:/sys/fs/cgroup -v /var/log/journal:/var/log/journal -v /run -v /tmp"
+DEFAULT_VOLUMES="-v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /var/log/journal:/var/log/journal -v /run -v /tmp"
 #We need to tell systemd that it runs in Docker
 DEFAULT_ENVS="-e container=docker"
 DEFAULT_CMD="/usr/sbin/init"
 DEFAULT_OPTS="-it"
-DEFAULT_NAME="test"
+DEFAULT_NAME="my_awesome_container"
 
 VOLUMES=${DEFAULT_VOLUMES}
 
