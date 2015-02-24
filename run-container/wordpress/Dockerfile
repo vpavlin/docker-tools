@@ -1,7 +1,8 @@
-FROM fedora
+FROM vpavlin/fedora:systemd
 MAINTAINER Vaclav Pavlin <vpavlin@redhat.com>
 
-RUN yum -y install httpd php php-common php-mysql tar patch; yum clean all
+RUN yum -y update && yum clean all
+RUN yum -y install httpd php php-common php-mysql tar patch && yum clean all
 
 RUN systemctl enable httpd.service
 
