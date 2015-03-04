@@ -12,6 +12,17 @@ is_true() {
     esac
 }
 
+usage() {
+    echo "Usage:"
+    echo -e "\t$(basename $0) NAME[:TAG]"
+}
+
+if [ $# -eq 1 ]; then
+    [ "$1" == "-h" -o "$1" == "--help" ] && usage && exit 0
+else
+    usage
+fi
+
 registry=${IMAGE%%/*}
 IMAGE=${IMAGE#*/}
 
@@ -30,11 +41,11 @@ fi
 
 uri="$registry/v1/repositories/$repo/${image%%:*}/tags/$tag"
 
-echo $uri
+#:echo $uri
 
 id=$(curl -X GET $uri 2> /dev/null)
 
-echo $id | grep error && exit
+[ -z "$id" ] && echo "Image does not exist" && exit 1
 echo -n "Do you really want to untag $id? [y/N]: "
 read action
 
