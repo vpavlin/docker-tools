@@ -1,4 +1,4 @@
-FROM Fedora-Docker-Base-22_Alpha_TC8-20150302.armv7l
+FROM fedora
 MAINTAINER Vaclav Pavlin <vpavlin@redhat.com>
 
 RUN yum -y update; yum clean all
