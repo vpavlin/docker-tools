@@ -1,0 +1,58 @@
+#Remove all untagged images (<none>)
+function docker-rmi-none() {
+    docker rmi $(docker images | grep none | awk '{print $3}');
+}
+
+#Remove all containers
+function docker-rm-all() {
+    docker rm $(docker ps -aq)
+}
+
+#Run a container
+#If CMD is not provided, uses bash, adds name in format tmp$NUMBER_OF_RUNNING_TMP_CONTS
+function dr() {
+    cmd="bash"
+    image=$1
+    [ $# -ge 2 ] && shift && cmd=$@
+    run="docker run --name tmp$(docker ps -a | grep tmp | wc -l)  -it --rm $image $cmd"
+    echo $run
+    $run
+}
+
+#Call docker load. If the image is not specified by path, use default directory
+function dl() {
+    local path=$1
+    local DEFAULT_PATH="${HOME}/devel/brew/"
+    [[ "${path}" =~ ^.*/.*$ ]] || path=${DEFAULT_PATH}${path}
+
+    docker load -i ${path}
+}
+
+#Docker exec
+#Use bash as a default CMD, if no container is specified, use last container from docker ps list
+function de() {
+    local cmd=bash
+    local container=$1
+    [ -z "$1" ] && container=$(docker ps | tail -1 | awk '{print $1}')
+    [ "$container" == "CONTAINER" ] && >&2 echo "No running container" && return 0
+    [ $# -ge 2 ] && shift && cmd=$@
+    docker exec -it $container $cmd
+}
+
+#Docker inspect/ip
+#Get an IP address of a container - if no container is specified, use last container from docker ps list
+function di() {
+    local container=$1
+    [ -z "$1" ] && container=$(docker ps | tail -1 | awk '{print $1}')
+    [ "$container" == "CONTAINER" ] && >&2 echo "No running container" && return 0
+    docker inspect $container | jq -r .[0].NetworkSettings.IPAddress
+}
+
+#Docker kill
+#Kill the specified container, if no container is specified, use last container from docker ps list
+function dk() {
+    local container=$1
+    [ -z "$1" ] && container=$(docker ps | tail -1 | awk '{print $1}')
+    [ "$container" == "CONTAINER" ] && >&2 echo "No running container" && return 0
+    docker kill $container
+}
