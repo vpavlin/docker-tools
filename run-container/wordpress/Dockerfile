@@ -1,4 +1,4 @@
-FROM vpavlin/fedora:systemd
+FROM vpavlin/fedora:arm
 MAINTAINER Vaclav Pavlin <vpavlin@redhat.com>
 
 RUN yum -y update && yum clean all
