@@ -8,6 +8,11 @@ function docker-rm-all() {
     docker rm $(docker ps -aq)
 }
 
+#Stop all containers
+function docker-stop-all() {
+    docker stop $(docker ps -q)
+}
+
 #Run a container
 #If CMD is not provided, uses bash, adds name in format tmp$NUMBER_OF_RUNNING_TMP_CONTS
 function dr() {
