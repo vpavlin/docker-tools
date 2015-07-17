@@ -61,3 +61,12 @@ function dk() {
     [ "$container" == "CONTAINER" ] && >&2 echo "No running container" && return 0
     docker kill $container
 }
+
+function docker-build() {
+    dockerfile="Dockerfile"
+    [ -e "$dockerfile" ] || return 1
+    build_cmd=$(cat $dockerfile | grep LABEL | grep -i build | cut -d " " -f 3-)
+
+    echo "Running a Build label from $dockerfile: $build_cmd"
+    $build_cmd
+}
