@@ -23,7 +23,7 @@ _() {
 
 VM_IMAGE=/tmp/fedora.img
 NAME=fedora-rawhide-base
-KICKSTART=https://git.fedorahosted.org/cgit/spin-kickstarts.git/plain/fedora-docker-base.ks
+KICKSTART=https://pagure.io/fedora-kickstarts/raw/master/f/fedora-docker-base.ks
 INSTALLROOT=http://kojipkgs.fedoraproject.org/mash/rawhide/x86_64/os/
 DOCKER_IMPORT=true
 DOCKER_BUILD=false
